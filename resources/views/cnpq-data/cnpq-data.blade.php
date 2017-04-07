@@ -30,4 +30,6 @@
             </div>
         @endif
     @endforeach
+
+    {{ $data->links() }}
 @endsection

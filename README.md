@@ -1,40 +1,33 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## About Crawler
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Crawler is a web based laravel application that goes through brazilian bidding websites to crawl information on trasparency and make them easier to analyze for robotic scripts. The main idea is to fundamentally develop different solutions for different kinds of websites. Ideally it would take any website that contains form actions and be able to crawl data from resquests.  
+For the first version, it is only available for crawling CNPq information through their bidding website. It includes:
+- The preview template.
+- A  list of available bidding websites for data mining.
+- A preview for the data collected, alongside all the information that could be gathered via post request.
 
-## About Laravel
+## Installation
+Before using Crawler, be sure to have Laravel v5.4 installed on your local machine.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+Also, you need to enable the php_mongodb.dll extension. For more information on usage of [Jenssegers MongoDB package](https://github.com/jenssegers/laravel-mongodb), please refer to their official documentaton.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Clone the project into your repository. Make sure to run composer install and composer update to be able to use all of the packages required for this application. Also, remember to add a .env file with your database host configurations.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+Run your MongoDB database instance in order to have a fully functioning application. If your configurations are incorrect, it may not function. In this case, feel free to contact me to help you solve your issue.
 
-## Learning Laravel
+## Usage
+Open your local connection and be sure to run your MongoDB instance (otherwise it will not work). Activate your apache server and access your directory in any web browser.
+The regular link would be http://localhost/crawler/public/
+Once you open the application, click the "Minar Dados" button and the results will be shown fully paginated using bootstrap panels. You can also access the information on your MongoDB interface of preference to check which data are coming.
+You can change the POST requests options on the CrawlService, changing the amount of documents you want to process. Please note that IT WILL CREATE DUPLICATES on the database every time you run the request since it does not check for duplicates on information for the database.
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+For processing the whole biddings website, change the "registros" option on the data array to at least 3160.
+## How it works
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+On version 0.1, the application only works on the bidding website for CNPq. It creates a POST request through Eloquent to retrieve the HTML data from the webpage.
+When the data is retrieved, it is treated as a string, checking which regular expressions can be used to find the desired information. Since the data is shown as a table, that is a starting point for gathering information.
+For more information on how it is processed, please refer to the comments found in the CrawlService.
 
-## Contributing
+For future versions, the interface will be enhanced, presenting the information with the correct pagination display, and it will be possible to register new bidding website applications.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Thank you for using Crawler!
