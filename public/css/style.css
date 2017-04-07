@@ -1,0 +1,12 @@
+body{
+    background-color: #f1f1f1;
+}
+
+.img{
+    display: block;
+    margin-bottom: 15px;
+}
+
+.index-grid{
+    margin-top: 50px;
+}
